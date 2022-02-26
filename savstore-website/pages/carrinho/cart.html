@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho | SAV STORE</title>
+    <link rel="stylesheet" href="./cart.css">
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Produto -->
+    <nav class="menu-container">
+        <!-- Burger menu -->
+        <input class="inputburger" type="checkbox" aria-label="Toggle menu" />
+        <span></span>
+        <span></span>
+        <span></span>
+      
+        <!-- Logo -->
+        <a href="/index.html" class="part-logo">
+          <img src="../../savstore.png" alt="logo" draggable="false">
+        </a>
+      
+        <!-- Header principal -->
+        <div class="menu">
+          <ul>
+            <li>
+              <a href="/index.html" class="border-menu">
+                Início
+              </a>
+            </li>
+            <li>
+                <a href="#promocoes" class="border-menu">
+                  Promoções
+                </a>
+            </li>
+            <li>
+              <a href="../produtos/products.html" class="border-menu">
+                Produtos
+              </a>
+            </li>
+            <li>
+              <a href="#sobre" class="border-menu">
+                Sobre
+              </a>
+            </li>
+            <li>
+              <a href="#contato" class="border-menu">
+                Contato
+              </a>
+            </li>
+          </ul>
+
+          <ul class="menu-search">
+            <div class="wrap" id="wrap">
+              <form action="" autocomplete="on">
+              <input class="search-box" id="search" name="search" type="text" placeholder="Pesquisar">
+              <input class="search-icon" id="search_submit" value="Rechercher" type="submit">
+              </form>
+            </div>
+            <div class="login-cart">
+              <a href="#login"><div class="login"></div></a>
+              <a href="/carrinho/cart.html"><div class="cart"></div></a>
+            </div>
+          </ul>
+        </div>
+      </nav>
+
+
+      <!-- Cart -->
+      <div class="cart-container">
+        
+        <div id="app">
+          <!-- Header -->
+          <header class="container">
+            <h1>Carrinho</h1>
+            <ul class="breadcrumb">
+              <li>Início</li>
+              <li>Carrinho</li>
+            </ul>
+            <span class="count">{{ itemCount }} itens no carrinho</span>
+          </header>
+          <!-- End Header -->
+        
+          <!-- Product List -->
+          <section class="container">
+            <div v-if="products.length > 0">
+              <ul class="products">
+
+              <li class="row" v-for="(product, index) in products">
+                <div class="col left">
+                  <div class="thumbnail">
+                    <a href="#">
+                      <img :src="product.image" :alt="product.name" />
+                    </a>
+                  </div>
+                  <div class="detail">
+                    <div class="name"><a href="#">{{ product.name }}</a></div>
+                    <div class="description">{{ product.description }}</div>
+                    <div class="price">{{ product.price | currencyFormatted }}</div>
+                  </div>
+                </div>
+        
+                <div class="col right">
+                  <div class="quantity">
+                    <input type="number" class="quantity" step="1" :value="product.quantity" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" />
+                  </div>
+                  
+                  <div class="remove">
+                    <svg @click="removeItem(index)" version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            </div>
+            <div v-else class="empty-product">
+              <h3>Não existem produtos no seu carrinho.</h3>
+              <button>Compre agora</button>
+            </div>
+          </section>
+          <!-- End Product List -->
+          
+          <!-- Summary -->
+          <section class="container" v-if="products.length > 0">
+            <div class="promotion">
+              <label for="promo-code">Cupom de desconto:</label>
+              <input type="text" id="promo-code" v-model="promoCode" /> <button type="button" @click="checkPromoCode"></button>
+            </div>
+        
+            <div class="summary">
+              <ul>
+                <li>Subtotal <span>{{ subTotal | currencyFormatted }}</span></li>
+                <li v-if="discount > 0">Cupom de Desconto <span>- {{ discountPrice | currencyFormatted }}</span></li>
+                <li>Frete <span>{{ tax | currencyFormatted }}</span></li>
+                <li class="total">Total <span>{{ totalPrice | currencyFormatted }}</span></li>
+              </ul>
+            </div>
+        
+            <div class="checkout">
+              <button type="button">Finalizar compra</button>
+            </div>
+          </section>
+          <!-- End Summary -->
+        </div>
+
+      </div>
+
+      <script src="./js/load-value.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+      <script src="./cart.js"></script>
+
+  </body>
+</html>
