@@ -1,8 +1,7 @@
-# ecommerce-website
-Meu primeiro website de e-commerce. Comecei quando tinha pouca experiência por isso tantas falhas. Então abandonei esse projeto e irei recomeçar :-)
+# Meu primeiro website ecommerce!
+Comecei quando eu tinha pouca experiência com desenvolvimento web, então abandonei o projeto por conta de ter ficado uma bagunça kkkk 😬
 
 
-// Irei recomeçar esse projeto de uma tentativa de um website ecommerce. Hoje com muita experiência adquirida ao longo desse projeto, acredito que farei 100x melhor.
 
 <!--
 Abandonei pois o código estava muito bagunçado, coisas que eu tinha deixado pra trás sem terminar/ou feito de forma simples(com muitas falhas) para dar início a outras página. 
