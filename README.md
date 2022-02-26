@@ -1,4 +1,4 @@
-- 💡 Meu primeiro E-Commerce Website!
+# 💡 Meu primeiro E-Commerce Website!
 - 😬 Abandonei o projeto pois eu havia pouca experiência na época em desenvolvimento web. Então o código ficou um bagunça haha...🤯
 
 
